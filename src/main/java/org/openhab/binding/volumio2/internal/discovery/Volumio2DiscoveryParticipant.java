@@ -73,21 +73,8 @@ public class Volumio2DiscoveryParticipant implements MDNSDiscoveryParticipant {
      */
     @Override
     public ThingUID getThingUID(ServiceInfo service) {
-        Collections.list(service.getPropertyNames()).forEach(s -> log.debug("PropertyName: {}", s));
-
-        String volumioName = service.getPropertyString("volumioName");
-        if (volumioName == null) {
-            return null;
-        }
-
-        String uuid = service.getPropertyString("UUID");
-        if (uuid == null) {
-            return null;
-        }
-
-        String uuidAndServername = String.format("%s-%s", uuid, volumioName);
-        log.debug("return new ThingUID({}, {});", THING_TYPE_VOLUMIO2, uuidAndServername);
-        return new ThingUID(THING_TYPE_VOLUMIO2, uuidAndServername);
+        log.debug("return new ThingUID({}, {});", THING_TYPE_VOLUMIO2, service.getPropertyString("UUID"));
+        return new ThingUID(THING_TYPE_VOLUMIO2, service.getPropertyString("UUID"));
     }
 
 }
